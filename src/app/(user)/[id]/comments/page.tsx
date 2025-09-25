@@ -8,11 +8,11 @@ type Comment = {
 };
 
 type Props = {
-  params: Promise<{ id: string }>; // ✅ ปรับ type ให้ถูกต้อง
+  params: { id: string }; // ✅ ไม่ต้องเป็น Promise
 };
 
 export default async function CommentsPage({ params }: Props) {
-  const { id } = await params; // ✅ รอ params ก่อนใช้
+  const { id } = params; // ✅ ใช้ตรง ๆ ได้เลย
   const res = await axios.get<Comment[]>(
     `https://jsonplaceholder.typicode.com/posts/${id}/comments`
   );
