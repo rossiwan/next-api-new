@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
+/* ---------- Theme Variables ---------- */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #2563eb;          /* สีหลัก */
+  --primary-hover: #1d4ed8;    /* hover สีปุ่ม */
+  --card-bg: #f9f9f9;          /* สี card */
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --font-sans: 'Inter', Arial, Helvetica, sans-serif;
+  --font-mono: 'Fira Code', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --card-bg: #1a1a1a;
+    --card-shadow: rgba(0, 0, 0, 0.3);
   }
 }
 
+/* ---------- Base Styles ---------- */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  padding: 1rem;
+}
+
+/* ---------- Headings ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+/* ---------- Card Layout ---------- */
+.card {
+  background-color: var(--card-bg);
+  color: var(--foreground);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px var(--card-shadow);
+  transform: translateY(-3px);
+}
+
+/* ---------- Buttons ---------- */
+button {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* ---------- Inputs ---------- */
+input, textarea {
+  background-color: var(--card-bg);
+  color: var(--foreground);
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
 }

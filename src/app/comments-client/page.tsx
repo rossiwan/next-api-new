@@ -1,10 +1,17 @@
-"use client";
+// src/app/comments-client/page.tsx
+
+'use client';
 
 import { useEffect } from "react";
 import { useComments } from "@/app/store/comments";
 import Link from "next/link";
 
-export default function CommentsClient({ postId }: { postId: number }) {
+interface PageProps {
+  params: { id: string };
+}
+
+export default function CommentsClient({ params }: PageProps) {
+  const postId = Number(params.id);
   const { items, loading, error, fetchComments } = useComments();
 
   useEffect(() => {

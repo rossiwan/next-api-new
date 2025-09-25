@@ -1,40 +1,34 @@
-"use client";
+'use client';
+import { create } from 'zustand';
+import axios from 'axios';
 
-import { create } from "zustand";
-import axios from "axios";
-
-type Comment = {
+interface Comment {
   id: number;
   name: string;
   email: string;
   body: string;
-};
+}
 
-type State = {
+interface CommentState {
   items: Comment[];
   loading: boolean;
   error: string | null;
   fetchComments: (postId: number) => Promise<void>;
-};
+}
 
-export const useComments = create<State>((set) => ({
+export const useComments = create<CommentState>((set) => ({
   items: [],
   loading: false,
   error: null,
-
-  fetchComments: async (postId: number) => {
+  fetchComments: async (postId) => {
+    set({ loading: true, error: null });
     try {
-      set({ loading: true, error: null });
-      const { data } = await axios.get<Comment[]>(
+      const res = await axios.get<Comment[]>(
         `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
       );
-      set({ items: data, loading: false });
-    } catch (err: unknown) {
-      let errorMessage = "Unknown error";
-      if (err instanceof Error) {
-        errorMessage = err.message;
-      }
-      set({ error: errorMessage, loading: false });
+      set({ items: res.data, loading: false });
+    } catch (err: any) {
+      set({ error: err.message || 'เกิดข้อผิดพลาด', loading: false });
     }
   },
 }));
