@@ -27,8 +27,10 @@ export const useComments = create<CommentState>((set) => ({
         `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
       );
       set({ items: res.data, loading: false });
-    } catch (err: any) {
-      set({ error: err.message || 'เกิดข้อผิดพลาด', loading: false });
+    } catch (err: unknown) {
+      let message = 'เกิดข้อผิดพลาด';
+      if (err instanceof Error) message = err.message;
+      set({ error: message, loading: false });
     }
   },
 }));
