@@ -1,4 +1,3 @@
-//src/app/(user)/[id]/comments/page.tsx
 import axios from "axios";
 
 type Comment = {
@@ -9,11 +8,11 @@ type Comment = {
 };
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>; // ✅ ปรับ type ให้ถูกต้อง
 };
 
 export default async function CommentsPage({ params }: Props) {
-  const { id } = await params; // await params ก่อนใช้งาน
+  const { id } = await params; // ✅ รอ params ก่อนใช้
   const res = await axios.get<Comment[]>(
     `https://jsonplaceholder.typicode.com/posts/${id}/comments`
   );
